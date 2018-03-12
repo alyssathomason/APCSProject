@@ -15,7 +15,7 @@ public class Game extends JFrame implements ActionListener {
     private JLabel mainTitle1, mainTitle2, mainTitle3, mainTitle4;
     private JMenuItem   mnuClearQuiz, mnuGameTitle, mnuStartQuiz, mnuExit;
 
-    JPanel pnlBar, pnlGame, pnlTitle, pnlTitlePicture, pnlTitlePage, pnlQuestion, pnlPicture, pnlAnswer;
+    private JPanel pnlBar, pnlGame, pnlTitle, pnlTitlePicture, pnlTitlePage, pnlQuestion, pnlPicture, pnlAnswer;
 
     private Font fontToken = new Font("Impact", Font.BOLD, 70);
     private Font fontTitle = new Font("Impact", Font.BOLD, 100);
@@ -67,7 +67,6 @@ public class Game extends JFrame implements ActionListener {
 
         //title page
         pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
-        pnlTitlePage.setBackground(new Color(69, 26, 0));
         mainTitle1 = new JLabel("wElCOmE");
         mainTitle1.setFont(fontTitle);
         pnlTitle.add(mainTitle1);
@@ -87,8 +86,6 @@ public class Game extends JFrame implements ActionListener {
         pnlTitlePage.add(startGameButton);
         //end title page
 
-        pnlGame.setLayout(new GridLayout(X, Y - 180, 2, 2));
-        pnlGame.setBackground(new Color(255, 42, 0)); //background behind buttons
 
         goToTitle();
 
@@ -119,10 +116,13 @@ public class Game extends JFrame implements ActionListener {
     //methods for what the game will look like
     public void showTitlePage() {
         pnlGame.add(pnlTitlePage);
+        pnlTitlePage.setBackground(new Color(69, 26, 0));
         pnlTitlePage.requestFocus();
         pnlGame.revalidate();
     }
     public void showGame() {
+        pnlGame.setLayout(new GridLayout(X, Y - 180, 2, 2));
+        pnlGame.setBackground(new Color(255, 42, 0));
         pnlGame.remove(pnlTitlePage);
         window.add(pnlGame, BorderLayout.CENTER);
         pnlGame.setLayout(new BorderLayout());
@@ -133,10 +133,15 @@ public class Game extends JFrame implements ActionListener {
         pnlPicture.requestFocus();
         pnlAnswer.requestFocus();
     }
-    private void goToTitle() {
+    public void removeGame() {
+        pnlGame.setLayout(new GridLayout(X, Y - 180, 2, 2));
         pnlGame.remove(pnlQuestion);
         pnlGame.remove(pnlPicture);
         pnlGame.remove(pnlAnswer);
+    }
+
+    private void goToTitle() {
+        removeGame();
         showTitlePage();
         //enableBoard(false);
     }
