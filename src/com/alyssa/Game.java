@@ -86,8 +86,8 @@ public class Game extends JFrame implements ActionListener {
         pnlTitlePage.add(startGameButton);
         //end title page
 
-
         goToTitle();
+        //test
 
         window.add(pnlBar, BorderLayout.NORTH);
         window.add(pnlGame, BorderLayout.CENTER);
