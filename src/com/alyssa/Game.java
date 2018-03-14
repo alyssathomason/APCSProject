@@ -75,9 +75,11 @@ public class Game extends JFrame implements ActionListener {
         mnuGameTitle.addActionListener(this);
 
         //title page
-
+<<<<<<< HEAD
+=======
         pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
         pnlTitlePage.setBackground(new Color(69, 0, 54));
+>>>>>>> adaf915ae6a44f0ae9755c2db2de57973638b76b
         mainTitle1 = new JLabel("wElCOmE");
         mainTitle1.setFont(fontTitle);
         pnlTitle.add(mainTitle1);
@@ -109,13 +111,15 @@ public class Game extends JFrame implements ActionListener {
         });
         //end title page
 
+<<<<<<< HEAD
         showTitlePage();
-
+=======
         pnlGame.setLayout(new GridLayout(X, Y - 180, 2, 2));
         pnlGame.setBackground(new Color(103, 146, 108)); //background behind buttons
 
         goToTitle();
 
+>>>>>>> adaf915ae6a44f0ae9755c2db2de57973638b76b
         window.add(pnlBar, BorderLayout.NORTH);
         window.add(pnlTitlePage, BorderLayout.CENTER);
         window.setVisible(true);
