@@ -69,6 +69,7 @@ public class Game extends JFrame implements ActionListener {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
         pnlTitlePage.setBackground(new Color(69, 0, 54));
@@ -76,6 +77,11 @@ public class Game extends JFrame implements ActionListener {
 =======
         pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
 >>>>>>> parent of 5d4d736... Lots of changes
+=======
+
+        pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
+        pnlTitlePage.setBackground(new Color(69, 0, 54));
+>>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
 =======
 
         pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
@@ -103,6 +109,9 @@ public class Game extends JFrame implements ActionListener {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
 =======
 >>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
         showTitlePage();
@@ -113,12 +122,15 @@ public class Game extends JFrame implements ActionListener {
         goToTitle();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> adaf915ae6a44f0ae9755c2db2de57973638b76b
 =======
         goToTitle();
         //test
 
 >>>>>>> parent of 5d4d736... Lots of changes
+=======
+>>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
 =======
 >>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
         window.add(pnlBar, BorderLayout.NORTH);
