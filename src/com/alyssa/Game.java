@@ -7,7 +7,7 @@ import javax.swing.plaf.metal.MetalButtonUI;
 
 public class Game extends JFrame implements ActionListener {
     public boolean inGame;
-    final int X = 600, Y = 1024;
+    final int X = 600, Y = 750;
 
     private JFrame window;
     private JMenuBar mnuMain;
@@ -20,6 +20,10 @@ public class Game extends JFrame implements ActionListener {
     private Font fontToken = new Font("Impact", Font.BOLD, 70);
     private Font fontTitle = new Font("Impact", Font.BOLD, 100);
     private Font fontMenu = new Font("Impact", Font.BOLD, 18);
+
+    private JButton answerChoices[];
+    private String[] choices = new String[]{"A", "B", "C", "D"};
+    private String[] answerKey;
 
     public void init() {
         inGame = false;
@@ -64,29 +68,16 @@ public class Game extends JFrame implements ActionListener {
         pnlBar.add(mnuMain);
         pnlBar.setBackground(new Color(75, 255, 0));
         //end menu initialization;
+        //adding Action Listeners to menu buttons
+        mnuClearQuiz.addActionListener(this);
+        mnuExit.addActionListener(this);
+        mnuStartQuiz.addActionListener(this);
+        mnuGameTitle.addActionListener(this);
 
         //title page
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
-        pnlTitlePage.setBackground(new Color(69, 0, 54));
->>>>>>> adaf915ae6a44f0ae9755c2db2de57973638b76b
-=======
-        pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
->>>>>>> parent of 5d4d736... Lots of changes
-=======
 
         pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
         pnlTitlePage.setBackground(new Color(69, 0, 54));
->>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
-=======
-
-        pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
-        pnlTitlePage.setBackground(new Color(69, 0, 54));
->>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
         mainTitle1 = new JLabel("wElCOmE");
         mainTitle1.setFont(fontTitle);
         pnlTitle.add(mainTitle1);
@@ -104,16 +95,20 @@ public class Game extends JFrame implements ActionListener {
         startGameButton.setFont(fontTitle);
         startGameButton.addActionListener(this);
         pnlTitlePage.add(startGameButton);
+        startGameButton.addActionListener(this);
+        startGameButton.setUI(new MetalButtonUI() {
+            protected Color getEnabledTextColor() {
+                return Color.GREEN;
+            }
+            protected Color getFocusColor() {
+                return Color.BLACK;
+            }
+            protected Color getSelectColor() {
+                return Color.BLACK;
+            }
+        });
         //end title page
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
-=======
->>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
         showTitlePage();
 
         pnlGame.setLayout(new GridLayout(X, Y - 180, 2, 2));
@@ -121,54 +116,68 @@ public class Game extends JFrame implements ActionListener {
 
         goToTitle();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> adaf915ae6a44f0ae9755c2db2de57973638b76b
-=======
-        goToTitle();
-        //test
-
->>>>>>> parent of 5d4d736... Lots of changes
-=======
->>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
-=======
->>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
         window.add(pnlBar, BorderLayout.NORTH);
-        window.add(pnlGame, BorderLayout.CENTER);
+        window.add(pnlTitlePage, BorderLayout.CENTER);
         window.setVisible(true);
-    }
 
+        //game board
+
+        pnlAnswer.setLayout(new GridLayout(4, 2, 2, 2));
+        pnlAnswer.setBackground(new Color(0, 255, 244)); //background behind buttons
+        for(int x = 0; x < 3; x++) {
+            answerChoices[x] = new JButton();
+            answerChoices[x].setText(choices[x]);
+            answerChoices[x].setBackground(new Color(0, 0, 0)); //text color of symbol
+            answerChoices[x].addActionListener(this);
+            pnlAnswer.add(answerChoices[x]);
+            answerChoices[x].setEnabled(true);
+            answerChoices[x].setUI(new MetalButtonUI() {
+                protected Color getDisabledTextColor() {
+                    return Color.WHITE;
+                }
+                protected Color getFocusColor() {
+                    return Color.BLACK;
+                }
+                protected Color getSelectColor() {
+                    return Color.BLACK;
+                }
+            });
+        }
+
+    }
     public void actionPerformed(ActionEvent click) {
         // get the mouse click from the user
         Object source = click.getSource();
         if (source == mnuGameTitle) {
             goToTitle();
         } else if (source == mnuClearQuiz) {
-            showGame();
+            clearGameBoard();
             /*startGame();*/
         } else if (source == mnuExit) {
-//            exitGame();
+            exitGame();
         } else if (source == mnuStartQuiz) {
+            clearGameBoard();
             showGame();
             /*startGame();*/
         } else if (source == startGameButton) {
+            clearGameBoard();
             showGame();
             // startGame();
         }
     }
-
     //methods for what the game will look like
     public void showTitlePage() {
         pnlGame.add(pnlTitlePage);
-        pnlTitlePage.setBackground(new Color(69, 26, 0));
+        pnlTitlePage.setLayout(new GridLayout(1, 0));
         pnlTitlePage.requestFocus();
         pnlGame.revalidate();
     }
     public void showGame() {
-        pnlGame.setLayout(new GridLayout(X, Y - 180, 2, 2));
+        pnlGame.setLayout(new FlowLayout(FlowLayout.CENTER));
         pnlGame.setBackground(new Color(255, 42, 0));
-        pnlGame.remove(pnlTitlePage);
+        window.add(pnlBar, BorderLayout.NORTH);
         window.add(pnlGame, BorderLayout.CENTER);
+        window.setVisible(true);
         pnlGame.setLayout(new BorderLayout());
         pnlGame.add(pnlQuestion, BorderLayout.NORTH);
         pnlGame.add(pnlPicture, BorderLayout.CENTER);
@@ -176,17 +185,37 @@ public class Game extends JFrame implements ActionListener {
         pnlQuestion.requestFocus();
         pnlPicture.requestFocus();
         pnlAnswer.requestFocus();
+        pnlGame.revalidate();
     }
-    public void removeGame() {
-        pnlGame.setLayout(new GridLayout(X, Y - 180, 2, 2));
+    private void clearGameBoard() {
+        pnlGame.remove(pnlTitlePage);
+        startGameButton.setVisible(false);
         pnlGame.remove(pnlQuestion);
         pnlGame.remove(pnlPicture);
         pnlGame.remove(pnlAnswer);
+        showGame();
+    }
+    private void exitGame() {
+        int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?",
+                "Quit" ,JOptionPane.YES_NO_OPTION);
+        if(option == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
+    }
+    private void goToTitle() {
+        clearGameBoard();
+        showTitlePage();
     }
 
-    private void goToTitle() {
-        removeGame();
-        showTitlePage();
-        //enableBoard(false);
-    }
+    //the actual game
+    // get a cell's contents
+//    public String getCell(int row, int col) {
+//        return boardButtons[map(row, col)].getText();
+//    }
+//
+//    // set a cell's contents
+//    public void setCell(int row, int col, String token) {
+//        setCellByIndex(map(row, col), token);
+//    }
 }
