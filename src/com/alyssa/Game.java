@@ -68,6 +68,7 @@ public class Game extends JFrame implements ActionListener {
         //title page
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
         pnlTitlePage.setBackground(new Color(69, 0, 54));
@@ -75,6 +76,11 @@ public class Game extends JFrame implements ActionListener {
 =======
         pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
 >>>>>>> parent of 5d4d736... Lots of changes
+=======
+
+        pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
+        pnlTitlePage.setBackground(new Color(69, 0, 54));
+>>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
         mainTitle1 = new JLabel("wElCOmE");
         mainTitle1.setFont(fontTitle);
         pnlTitle.add(mainTitle1);
@@ -96,19 +102,25 @@ public class Game extends JFrame implements ActionListener {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
-        showTitlePage();
+<<<<<<< HEAD
 =======
+>>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
+        showTitlePage();
+
         pnlGame.setLayout(new GridLayout(X, Y - 180, 2, 2));
         pnlGame.setBackground(new Color(103, 146, 108)); //background behind buttons
 
         goToTitle();
 
+<<<<<<< HEAD
 >>>>>>> adaf915ae6a44f0ae9755c2db2de57973638b76b
 =======
         goToTitle();
         //test
 
 >>>>>>> parent of 5d4d736... Lots of changes
+=======
+>>>>>>> parent of 6e353a7... Revert "Maybe might fix things"
         window.add(pnlBar, BorderLayout.NORTH);
         window.add(pnlGame, BorderLayout.CENTER);
         window.setVisible(true);
