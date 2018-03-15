@@ -7,7 +7,6 @@ public class Question {
     String[] key = {"a", "b", "c", "d", "a", "b", "c", "d", "a", "b", "c", "d", "a", "b"};
     public Question(int qNum) {
         this.qNum = qNum;
-        
     }
     //method gets input from button
     //if input == key[qNum], correct++. qNum++.
