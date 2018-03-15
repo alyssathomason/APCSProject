@@ -10,3 +10,4 @@ src/production
 *.iml
 .idea
 .DS_Store
+*.xml
