@@ -77,7 +77,7 @@ public class Game extends JFrame implements ActionListener {
         //title page
 
         pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
-        pnlTitlePage.setBackground(new Color(69, 0, 54));
+        pnlTitlePage.setBackground(new Color(69, 62, 63));
         mainTitle1 = new JLabel("wElCOmE");
         mainTitle1.setFont(fontTitle);
         pnlTitle.add(mainTitle1);
