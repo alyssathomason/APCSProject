@@ -74,7 +74,7 @@ public class Game extends JFrame implements ActionListener {
         mnuStartQuiz.addActionListener(this);
         mnuGameTitle.addActionListener(this);
 
-        //title page
+        //title page test test test
 
         pnlTitlePage.setLayout(new GridLayout(X, Y - 180, 2, 2));
         pnlTitlePage.setBackground(new Color(69, 62, 63));
