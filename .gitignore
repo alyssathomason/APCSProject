@@ -11,3 +11,4 @@ src/production
 .idea
 .DS_Store
 *.xml
+.idea/workspace.xml
