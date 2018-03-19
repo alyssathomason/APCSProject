@@ -13,11 +13,11 @@ public class Question {
         this.qNum = qNum;
 
     }
-    public void changeButtonDisplay(int qNum){
-        if(inGame == false){
+    public void changeButtonDisplay(int qNum, boolean inGame){
+        if (inGame == false){
             //button1-4.setText("PRESS ME DADDY");
         }
-        if(qNum == 0){
+        if (qNum == 0){
             //button1.setText
             //button2.setText
             //button3.setText
@@ -31,11 +31,11 @@ public class Question {
     public boolean checkCorrect(int response){
         return true;
         //if !=, disable button (?) or -1 life.
-        public boolean checkCorrect(/**button input**/){
-            if(/**button input** == key**/){
-                return true;
-            }
-            return false;
-        }
+        // public boolean checkCorrect(/**button input**/){
+        //     if(/**button input** == key**/){
+        //         return true;
+        //     }
+        //     return false;
+        // }
     }
 }
