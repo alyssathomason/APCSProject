@@ -86,9 +86,12 @@ public class Game extends JFrame implements ActionListener {
         mainTitle4.setFont(fontTitle);
         pnlTitle.add(mainTitle4);
         pnlTitle.setBackground(new Color(255, 0, 0)); //color = red
+        //adding title picture
         pnlTitlePage.add(pnlTitle, BorderLayout.NORTH);
+        pnlTitlePage.add(pnlTitlePicture, BorderLayout.CENTER);
+        pnlTitlePicture.setBackground(new Color(255, 0, 0));
         //adding the start game button
-        startGameButton = new JButton("Start Game");
+        startGameButton = new JButton("Press me daddy");
         startGameButton.setFont(fontTitle);
         startGameButton.addActionListener(this);
         startGameButton.setBackground(new Color(255, 255, 0)); //color = yellow
@@ -172,6 +175,7 @@ public class Game extends JFrame implements ActionListener {
         startGameButton.setEnabled(true);
         startGameButton.setVisible(true);
         pnlTitlePage.requestFocus();
+        window.revalidate();
     }
     public void showGame() {
         clearGameBoard();
@@ -180,10 +184,10 @@ public class Game extends JFrame implements ActionListener {
         window.revalidate();
     }
     private void clearGameBoard() {
+        window.remove(pnlGame);
         window.remove(pnlTitlePage);
         startGameButton.setEnabled(false);
         startGameButton.setVisible(false);
-        window.remove(pnlGame);
         window.revalidate();
     }
     private void exitGame() {
