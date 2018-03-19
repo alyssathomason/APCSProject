@@ -13,3 +13,4 @@ src/production
 *.xml
 .idea/workspace.xml
 *.xml
+*.vscode
