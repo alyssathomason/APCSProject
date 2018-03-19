@@ -16,5 +16,9 @@ src/production
 *.vscode
 src/Game$1.class
 src/Game$2.class
-.class
-.ctxt
+src/Game.class
+src/Main.class
+src/Question.class
+src/Game.ctxt
+src/Question.ctxt
+src/Main.ctxt
