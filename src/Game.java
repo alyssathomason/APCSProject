@@ -47,7 +47,7 @@ public class Game extends JFrame implements ActionListener {
 
         //start MENU initialization
         mnuMain = new JMenuBar();
-        mnuGameTitle = new JMenuItem("HOME");
+        mnuGameTitle = new JMenuItem("   HOME");
         mnuClearQuiz = new JMenuItem("   CLEAR QUIZ");
         mnuStartQuiz = new JMenuItem("   START QUIZ");
         mnuExit = new JMenuItem("   GIVE UP");
@@ -126,7 +126,7 @@ public class Game extends JFrame implements ActionListener {
         pnlGame.add(pnlPicture, BorderLayout.CENTER);
         pnlPicture.setBackground(new Color(255, 135, 0)); //color = burnt orange
         //set up answer choices
-        pnlAnswer.setLayout(new GridLayout(4, 2, 2, 2));
+        pnlAnswer.setLayout(new GridLayout(1, 4, 2, 2));
         pnlAnswer.setBackground(new Color(0, 255, 245)); //background behind buttons; color = tourquoise
         for(int x = 0; x < 3; x++) {
             answerChoices[x] = new JButton(choices[x]);
