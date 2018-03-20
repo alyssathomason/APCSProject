@@ -67,3 +67,8 @@
 14b. Eyesight
 14c. Farsighted
 14d. Legally Blind
+
+15a. Falcon
+15b. Crow
+15c. Eagle
+15d. Pterodactyl
