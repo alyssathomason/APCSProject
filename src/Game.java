@@ -47,7 +47,7 @@ public class Game extends JFrame implements ActionListener {
 
         //start MENU initialization
         mnuMain = new JMenuBar();
-        mnuGameTitle = new JMenuItem("HOME   ");
+        mnuGameTitle = new JMenuItem("HOME");
         mnuClearQuiz = new JMenuItem("   CLEAR QUIZ");
         mnuStartQuiz = new JMenuItem("   START QUIZ");
         mnuExit = new JMenuItem("   GIVE UP");
@@ -108,7 +108,6 @@ public class Game extends JFrame implements ActionListener {
             }
         });
         //end title page
-
         showTitlePage();
 
         window.add(pnlBar, BorderLayout.NORTH);
@@ -137,10 +136,10 @@ public class Game extends JFrame implements ActionListener {
             answerChoices[x].setEnabled(true);
             answerChoices[x].setUI(new MetalButtonUI() {
                 protected Color getDisabledTextColor() {
-                    return Color.BLACK;
+                    return Color.WHITE;
                 }
                 protected Color getFocusColor() {
-                    return Color.WHITE;
+                    return Color.BLACK;
                 }
                 protected Color getSelectColor() {
                     return Color.BLACK;
@@ -175,20 +174,23 @@ public class Game extends JFrame implements ActionListener {
         startGameButton.setEnabled(true);
         startGameButton.setVisible(true);
         pnlTitlePage.requestFocus();
-        window.revalidate();
+        pnlTitlePage.setVisible(true);
     }
     public void showGame() {
         clearGameBoard();
         window.add(pnlGame, BorderLayout.CENTER);
+        pnlAnswer.setEnabled(true);
+        pnlAnswer.setVisible(true);
         pnlGame.requestFocus();
-        window.revalidate();
+        pnlGame.setVisible(true);
     }
     private void clearGameBoard() {
         window.remove(pnlGame);
         window.remove(pnlTitlePage);
         startGameButton.setEnabled(false);
         startGameButton.setVisible(false);
-        window.revalidate();
+        pnlTitlePage.setVisible(false);
+        pnlGame.setVisible(false);
     }
     private void exitGame() {
         int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?",
