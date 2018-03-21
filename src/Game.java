@@ -3,20 +3,29 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
 
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.swing.*;
+import javax.imageio.ImageIO;
+
 public class Game extends JFrame implements ActionListener {
     static final long serialVersionUID = 106664208;
     public boolean inGame;
     final int X = 600, Y = 750;
 
     private int score = 0;
+    
+    BufferedImage image;
 
     private JFrame window;
     private JMenuBar mnuMain;
     private JButton startGameButton;
-    private JLabel mainTitle1, mainTitle2, mainTitle3, mainTitle4, lblQuestion;
+    private JLabel mainTitle1, mainTitle2, mainTitle3, mainTitle4, lblQuestion, qPic;
     private JMenuItem   mnuClearQuiz, mnuGameTitle, mnuStartQuiz, mnuExit;
 
-    private JPanel pnlBar, pnlGame, pnlTitle, pnlTitlePicture, pnlTitlePage, pnlQuestion, pnlPicture, pnlAnswer;
+    private JPanel pnlBar, pnlGame, pnlTitle, pnlTitlePicture, pnlTitlePage, pnlQuestion, pnlAnswer;
+    public static JPanel pnlPicture;
 
     private Font fontToken = new Font("Impact", Font.BOLD, 70);
     private Font fontTitle = new Font("Impact", Font.BOLD, 15);
@@ -31,7 +40,7 @@ public class Game extends JFrame implements ActionListener {
         inGame = false;
 
         window = new JFrame("REVENGERS REUNITE");
-        
+
         pnlBar = new JPanel();
         pnlGame = new JPanel();
         pnlTitlePage = new JPanel();
@@ -71,7 +80,7 @@ public class Game extends JFrame implements ActionListener {
         pnlBar.add(mnuMain);
         pnlBar.setBackground(new Color(75, 255, 0)); //color = bright green
         //end menu initialization;
-        
+
         //title page
         pnlTitlePage.setLayout(new BorderLayout());
         pnlTitlePage.setBackground(new Color(255, 0, 0)); //color = red
@@ -99,16 +108,18 @@ public class Game extends JFrame implements ActionListener {
         startGameButton.setBackground(new Color(255, 255, 0)); //color = yellow
         pnlTitlePage.add(startGameButton, BorderLayout.SOUTH);
         startGameButton.setUI(new MetalButtonUI() {
-            protected Color getDisabledTextColor() {
-                return Color.GREEN;
-            }
-            protected Color getFocusColor() {
-                return Color.BLACK;
-            }
-            protected Color getSelectColor() {
-                return Color.BLACK;
-            }
-        });
+                protected Color getDisabledTextColor() {
+                    return Color.GREEN;
+                }
+
+                protected Color getFocusColor() {
+                    return Color.BLACK;
+                }
+
+                protected Color getSelectColor() {
+                    return Color.BLACK;
+                }
+            });
         //end title page
         showTitlePage();
 
@@ -126,8 +137,24 @@ public class Game extends JFrame implements ActionListener {
         //set up picture area
         pnlGame.add(pnlPicture, BorderLayout.CENTER);
         pnlPicture.setBackground(new Color(255, 135, 0)); //color = burnt orange
+        qPic = getPicture("1_tinman.png");
+    }
+
+    public JLabel getPicture(String filename){
+        
+        
+        try{
+            BufferedImage image = ImageIO.read(new File(filename));
+        }   catch(FileNotFoundException ex){
+            System.out.println("can't find image");
+        }   catch(IOException ex){
+            System.out.println("error reading file");
+        }
+        JLabel label = new JLabel(new ImageIcon(image));
+        return label;
 
     }
+
     public void actionPerformed(ActionEvent click) {
         // get the mouse click from the user
         Object source = click.getSource();
@@ -155,6 +182,7 @@ public class Game extends JFrame implements ActionListener {
         pnlTitlePage.requestFocus();
         pnlTitlePage.setVisible(true);
     }
+
     public void showGame() {
         clearGameBoard();
         // showAnswers();
@@ -163,6 +191,7 @@ public class Game extends JFrame implements ActionListener {
         pnlGame.requestFocus();
         pnlGame.setVisible(true);
     }
+
     public void showAnswers() {
         //set up answer choices
         pnlAnswer.setLayout(new GridLayout(1, 4, 2, 2));
@@ -174,6 +203,7 @@ public class Game extends JFrame implements ActionListener {
             answerChoices[x].addActionListener(this);
             pnlAnswer.add(answerChoices[x]);
             answerChoices[x].setEnabled(true);
+            answerChoices[x].setVisible(true);
             // answerChoices[x].setUI(new MetalButtonUI() {
             //     protected Color getDisabledTextColor() {
             //         return Color.WHITE;
@@ -191,6 +221,7 @@ public class Game extends JFrame implements ActionListener {
         }
         pnlGame.add(pnlAnswer, BorderLayout.SOUTH);
     }
+
     public void clearGameBoard() {
         window.remove(pnlGame);
         window.remove(pnlTitlePage);
@@ -199,6 +230,7 @@ public class Game extends JFrame implements ActionListener {
         pnlTitlePage.setVisible(false);
         pnlGame.setVisible(false);
     }
+
     public void exitGame() {
         int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?",
                 "Quit" ,JOptionPane.YES_NO_OPTION);
