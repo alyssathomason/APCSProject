@@ -117,7 +117,6 @@ public class Game extends JFrame implements ActionListener {
 
         //game board
         pnlGame.setLayout(new BorderLayout());
-        pnlGame.setBackground(new Color(255, 0, 145)); //background of game board; color = pink
         //question
         lblQuestion = new JLabel(questions[1]);
         lblQuestion.setFont(fontMenu);;
@@ -158,13 +157,13 @@ public class Game extends JFrame implements ActionListener {
     }
     public void showGame() {
         clearGameBoard();
+        // showAnswers();
+        window.remove(pnlGame);
         window.add(pnlGame, BorderLayout.CENTER);
-        showAnswers();
         pnlGame.requestFocus();
         pnlGame.setVisible(true);
     }
     public void showAnswers() {
-        pnlAnswer.requestFocus();
         //set up answer choices
         pnlAnswer.setLayout(new GridLayout(1, 4, 2, 2));
         pnlAnswer.setBackground(new Color(0, 255, 245)); //background behind buttons; color = tourquoise
@@ -188,6 +187,7 @@ public class Game extends JFrame implements ActionListener {
             //         return Color.BLACK;
             //     }
             // });
+            pnlAnswer.requestFocus();
         }
         pnlGame.add(pnlAnswer, BorderLayout.SOUTH);
     }
@@ -217,6 +217,5 @@ public class Game extends JFrame implements ActionListener {
                 score++;
             }
         }
-        
     }
 }
