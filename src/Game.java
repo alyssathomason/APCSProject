@@ -127,28 +127,6 @@ public class Game extends JFrame implements ActionListener {
         //set up picture area
         pnlGame.add(pnlPicture, BorderLayout.CENTER);
         pnlPicture.setBackground(new Color(255, 135, 0)); //color = burnt orange
-        //set up answer choices
-        pnlAnswer.setLayout(new GridLayout(1, 4, 2, 2));
-        pnlAnswer.setBackground(new Color(0, 255, 245)); //background behind buttons; color = tourquoise
-        for(int x = 0; x < 4; x++) {
-            answerChoices[x] = new JButton(choices[x]);
-            answerChoices[x].setBackground(new Color(0, 247, 255)); //text color of symbol; color = bright blue
-            answerChoices[x].addActionListener(this);
-            pnlAnswer.add(answerChoices[x]);
-            answerChoices[x].setEnabled(true);
-            answerChoices[x].setUI(new MetalButtonUI() {
-                protected Color getDisabledTextColor() {
-                    return Color.WHITE;
-                }
-                protected Color getFocusColor() {
-                    return Color.BLACK;
-                }
-                protected Color getSelectColor() {
-                    return Color.BLACK;
-                }
-            });
-        }
-        pnlGame.add(pnlAnswer, BorderLayout.SOUTH);
 
     }
     public void actionPerformed(ActionEvent click) {
@@ -181,12 +159,39 @@ public class Game extends JFrame implements ActionListener {
     public void showGame() {
         clearGameBoard();
         window.add(pnlGame, BorderLayout.CENTER);
-        pnlAnswer.setEnabled(true);
-        pnlAnswer.setVisible(true);
+        showAnswers();
         pnlGame.requestFocus();
         pnlGame.setVisible(true);
     }
-    private void clearGameBoard() {
+    public void showAnswers() {
+        pnlAnswer.requestFocus();
+        //set up answer choices
+        pnlAnswer.setLayout(new GridLayout(1, 4, 2, 2));
+        pnlAnswer.setBackground(new Color(0, 255, 245)); //background behind buttons; color = tourquoise
+        for (int x = 0; x < 3; x++) {
+            answerChoices[x] = new JButton();
+            answerChoices[x].setText(choices[x]);
+            answerChoices[x].setBackground(new Color(0, 247, 255)); //text color of symbol; color = bright blue
+            answerChoices[x].addActionListener(this);
+            pnlAnswer.add(answerChoices[x]);
+            answerChoices[x].setEnabled(true);
+            // answerChoices[x].setUI(new MetalButtonUI() {
+            //     protected Color getDisabledTextColor() {
+            //         return Color.WHITE;
+            //     }
+
+            //     protected Color getFocusColor() {
+            //         return Color.BLACK;
+            //     }
+
+            //     protected Color getSelectColor() {
+            //         return Color.BLACK;
+            //     }
+            // });
+        }
+        pnlGame.add(pnlAnswer, BorderLayout.SOUTH);
+    }
+    public void clearGameBoard() {
         window.remove(pnlGame);
         window.remove(pnlTitlePage);
         startGameButton.setEnabled(false);
@@ -194,7 +199,7 @@ public class Game extends JFrame implements ActionListener {
         pnlTitlePage.setVisible(false);
         pnlGame.setVisible(false);
     }
-    private void exitGame() {
+    public void exitGame() {
         int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?",
                 "Quit" ,JOptionPane.YES_NO_OPTION);
         if(option == JOptionPane.YES_OPTION)
@@ -202,6 +207,7 @@ public class Game extends JFrame implements ActionListener {
             System.exit(0);
         }
     }
+    //game-->
     private void checkBoardClick(Object source) {
         if(!inGame){
             return;
@@ -213,15 +219,4 @@ public class Game extends JFrame implements ActionListener {
         }
         
     }
-
-    //the actual game
-    // get a cell's contents
-//    public String getCell(int row, int col) {
-//        return boardButtons[map(row, col)].getText();
-//    }
-//
-//    // set a cell's contents
-//    public void setCell(int row, int col, String token) {
-//        setCellByIndex(map(row, col), token);
-//    }
 }
