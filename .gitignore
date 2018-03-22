@@ -13,3 +13,12 @@ src/production
 *.xml
 .idea/workspace.xml
 *.xml
+*.vscode
+src/Game$1.class
+src/Game$2.class
+src/Game.class
+src/Main.class
+src/Question.class
+src/Game.ctxt
+src/Question.ctxt
+src/Main.ctxt
