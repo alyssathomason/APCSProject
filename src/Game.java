@@ -1,5 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
 import javax.sound.sampled.AudioInputStream;
@@ -21,15 +27,18 @@ public class Game extends JFrame implements ActionListener {
     private JLabel mainTitle1, mainTitle2, mainTitle3, mainTitle4, lblQuestion, qPic; 
     private JMenuItem   mnuClearQuiz, mnuGameTitle, mnuStartQuiz, mnuExit;
 
-    private JPanel pnlBar, pnlGame, pnlTitle, pnlTitlePicture, pnlTitlePage, pnlQuestion, pnlPicture, pnlAnswer;
+    private JPanel pnlBar, pnlGame, pnlTitle, pnlTitlePicture, pnlTitlePage, pnlQuestion, pnlAnswer;
+    public static JPanel pnlPicture;
 
     private Font fontToken = new Font("Impact", Font.BOLD, 70);
     private Font fontTitle = new Font("Impact", Font.BOLD, 30);
     private Font fontMenu = new Font("Impact", Font.BOLD, 18);
 
+    BufferedImage image;
+
     private JButton answerChoices[] = new JButton[4];
-    private String[] choices = new String[]{"A", "B", "C", "D"};
-    private String[] answerKey;
+    private String[] choices = new String[] {"A", "B", "C", "D"};
+    private String[] answerKey = new String[] {"A", "B", "C", "D", "A", "D", "C", "C", "A", "A", "C", "B", "D", "D", "B"};
     private String[] questions = {"Press button for to begin", "This revenger who?",
             "Conglaturations! A winner is you! Pray againe?", "Haha you loose, now world is will be destroy!" 
     };
@@ -152,7 +161,6 @@ public class Game extends JFrame implements ActionListener {
                 protected Color getDisabledTextColor() {
                     return Color.WHITE;
                 }
-
                 protected Color getFocusColor() {
                     return Color.BLACK;
                 }
@@ -233,9 +241,7 @@ public class Game extends JFrame implements ActionListener {
       }
       public void loadPlay(String filename){
          try{
-            AudioInputStream audioInputStream =
-            AudioSystem.getAudioInputStream(
-            this.getClass().getResource(filename));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(filename));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -255,7 +261,23 @@ public class Game extends JFrame implements ActionListener {
         if(!inGame){
             return;
         }
-
+        else if (source == "A") {
+            if (answerKey[currQuestion] == "A") {
+                score++;
+            }
+        } else if (source == "B") {
+            if (answerKey[currQuestion] == "B") {
+                score++;
+            }
+        } else if (source == "C") {
+            if (answerKey[currQuestion] == "C") {
+                score++;
+            }
+        } else if (source == "D") {
+            if (answerKey[currQuestion] == "D") {
+                score++;
+            }
+        }
     }
     private void startGame() {
         inGame = true;
