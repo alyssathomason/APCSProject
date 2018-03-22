@@ -3,19 +3,20 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
 
-import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
-import javax.swing.*;
 import javax.imageio.ImageIO;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 public class Game extends JFrame implements ActionListener {
     static final long serialVersionUID = 106664208;
     public boolean inGame;
     final int X = 600, Y = 750;
 
     private int score = 0;
-    
+
     BufferedImage image;
 
     private JFrame window;
@@ -137,14 +138,17 @@ public class Game extends JFrame implements ActionListener {
         //set up picture area
         pnlGame.add(pnlPicture, BorderLayout.CENTER);
         pnlPicture.setBackground(new Color(255, 135, 0)); //color = burnt orange
+        
         qPic = getPicture("1_tinman.png");
+        pnlQuestion.add(qPic);
+        
+        loadPlay("revengerstheme.wav");
+        
     }
 
     public JLabel getPicture(String filename){
-        
-        
         try{
-            BufferedImage image = ImageIO.read(new File(filename));
+            image = ImageIO.read(new File(filename));
         }   catch(FileNotFoundException ex){
             System.out.println("can't find image");
         }   catch(IOException ex){
@@ -153,6 +157,26 @@ public class Game extends JFrame implements ActionListener {
         JLabel label = new JLabel(new ImageIcon(image));
         return label;
 
+    }
+
+    public void loadPlay(String filename){
+        try{
+            AudioInputStream audioInputStream =
+                AudioSystem.getAudioInputStream(
+                    this.getClass().getResource(filename));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.start();
+        }
+        catch(Exception ex)
+        {
+            System.out.println("clip not loaded");
+        }
+    }
+    
+    public void repeatPlay(){
+        loadPlay("revengerstheme.wav");
     }
 
     public void actionPerformed(ActionEvent click) {
