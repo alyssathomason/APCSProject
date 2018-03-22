@@ -13,7 +13,7 @@ import javax.sound.sampled.Clip;
 public class Game extends JFrame implements ActionListener {
     static final long serialVersionUID = 106664208;
     public boolean inGame;
-    final int X = 1200, Y = 800;
+    final int X = 600, Y = 750;
 
     private int score = 0;
 
@@ -158,12 +158,7 @@ public class Game extends JFrame implements ActionListener {
         return label;
 
     }
-    /**load picture method
-        // if question_number == x{
-            qPic = getPicture("(filename)");
-            pnlQuestion.add(qPic);
-        }
-        **/
+
     public void loadPlay(String filename){
         try{
             AudioInputStream audioInputStream =
