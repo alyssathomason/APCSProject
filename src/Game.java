@@ -175,10 +175,6 @@ public class Game extends JFrame implements ActionListener {
         }
     }
     
-    public void repeatPlay(){
-        loadPlay("revengerstheme.wav");
-    }
-
     public void actionPerformed(ActionEvent click) {
         // get the mouse click from the user
         Object source = click.getSource();
