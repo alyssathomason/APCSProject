@@ -15,7 +15,7 @@ import javax.sound.sampled.Clip;
 public class Game extends JFrame implements ActionListener {
     static final long serialVersionUID = 106664208;
     public boolean inGame;
-    final int X = 600, Y = 750;
+    final int X = 1200, Y = 800;
 
     private int score = 0;
     private int currQuestion = 0;
@@ -161,6 +161,32 @@ public class Game extends JFrame implements ActionListener {
                 protected Color getDisabledTextColor() {
                     return Color.WHITE;
                 }
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+    }
+    /**load picture method
+        // if question_number == x{
+            qPic = getPicture("(filename)");
+            pnlQuestion.add(qPic);
+        }
+        **/
+    public void loadPlay(String filename){
+        try{
+            AudioInputStream audioInputStream =
+                AudioSystem.getAudioInputStream(
+                    this.getClass().getResource(filename));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.start();
+        }
+        catch(Exception ex)
+        {
+            System.out.println("clip not loaded");
+=======
+>>>>>>> b6c77c43f4e78298b80c73ad345bc6c84c9f6f33
                 protected Color getFocusColor() {
                     return Color.BLACK;
                 }
@@ -169,11 +195,16 @@ public class Game extends JFrame implements ActionListener {
                     return Color.BLACK;
                 }
             });
+>>>>>>> origin/master
         }
         pnlAnswer.requestFocus();
         pnlAnswer.setVisible(true);
         
     }
+<<<<<<< HEAD
+    
+=======
+>>>>>>> origin/master
     public void actionPerformed(ActionEvent click) {
         // get the mouse click from the user
         Object source = click.getSource();
