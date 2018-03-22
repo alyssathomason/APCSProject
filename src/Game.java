@@ -2,6 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class Game extends JFrame implements ActionListener {
     static final long serialVersionUID = 106664208;
@@ -9,24 +12,28 @@ public class Game extends JFrame implements ActionListener {
     final int X = 600, Y = 750;
 
     private int score = 0;
+    private int currQuestion = 0;
 
     private JFrame window;
     private JMenuBar mnuMain;
     private JButton startGameButton;
-    private JLabel mainTitle1, mainTitle2, mainTitle3, mainTitle4, lblQuestion;
+
+    private JLabel mainTitle1, mainTitle2, mainTitle3, mainTitle4, lblQuestion, qPic; 
     private JMenuItem   mnuClearQuiz, mnuGameTitle, mnuStartQuiz, mnuExit;
 
     private JPanel pnlBar, pnlGame, pnlTitle, pnlTitlePicture, pnlTitlePage, pnlQuestion, pnlPicture, pnlAnswer;
 
     private Font fontToken = new Font("Impact", Font.BOLD, 70);
-    private Font fontTitle = new Font("Impact", Font.BOLD, 15);
+    private Font fontTitle = new Font("Impact", Font.BOLD, 30);
     private Font fontMenu = new Font("Impact", Font.BOLD, 18);
 
-    private JButton answerChoices[];
+    private JButton answerChoices[] = new JButton[4];
     private String[] choices = new String[]{"A", "B", "C", "D"};
     private String[] answerKey;
-    private String[] questions = { "Press button for to begin", "This revenger who?",
-            "Conglaturations! A winner is you! Pray againe?", "Haha you loose, now world is will be destroy!" };
+    private String[] questions = {"Press button for to begin", "This revenger who?",
+            "Conglaturations! A winner is you! Pray againe?", "Haha you loose, now world is will be destroy!" 
+    };
+    
     public void init() {
         inGame = false;
 
@@ -125,8 +132,39 @@ public class Game extends JFrame implements ActionListener {
         pnlGame.add(pnlQuestion, BorderLayout.NORTH);
         //set up picture area
         pnlGame.add(pnlPicture, BorderLayout.CENTER);
+        qPic = getPicture("1_tinman.png");
+        pnlQuestion.add(qPic);       
+        loadPlay("revengerstheme.wav");
         pnlPicture.setBackground(new Color(255, 135, 0)); //color = burnt orange
+        //set up answer choices
+        pnlAnswer.setLayout(new FlowLayout(FlowLayout.CENTER));
+        pnlAnswer.setBackground(new Color(0, 255, 245)); //background behind buttons; color = tourquoise 
+        for (int x = 0; x < 4; x++) {
+            answerChoices[x] = new JButton();
+            answerChoices[x].setText(choices[x]);
+            System.out.println(choices[x]);
+            answerChoices[x].setFont(fontToken);
+            answerChoices[x].setBackground(new Color(0, 247, 255)); //text color of symbol; color = bright blue
+            answerChoices[x].addActionListener(this);
+            pnlAnswer.add(answerChoices[x]);
+            answerChoices[x].setEnabled(true);
+            answerChoices[x].setUI(new MetalButtonUI() {
+                protected Color getDisabledTextColor() {
+                    return Color.WHITE;
+                }
 
+                protected Color getFocusColor() {
+                    return Color.BLACK;
+                }
+
+                protected Color getSelectColor() {
+                    return Color.BLACK;
+                }
+            });
+        }
+        pnlAnswer.requestFocus();
+        pnlAnswer.setVisible(true);
+        
     }
     public void actionPerformed(ActionEvent click) {
         // get the mouse click from the user
@@ -135,15 +173,18 @@ public class Game extends JFrame implements ActionListener {
             showTitlePage();
         } else if (source == mnuClearQuiz) {
             clearGameBoard();
-            /*startGame();*/
+            startGame();
         } else if (source == mnuExit) {
             exitGame();
         } else if (source == mnuStartQuiz) {
             showGame();
-            /*startGame();*/
+            startGame();
         } else if (source == startGameButton) {
             showGame();
-            // startGame();
+            startGame();
+        }
+        else {
+            checkBoardClick(source);
         }
     }
     //methods for what the game will look like
@@ -157,39 +198,11 @@ public class Game extends JFrame implements ActionListener {
     }
     public void showGame() {
         clearGameBoard();
-        // showAnswers();
-        window.remove(pnlGame);
         window.add(pnlGame, BorderLayout.CENTER);
+        pnlGame.add(pnlAnswer, BorderLayout.SOUTH);
+        pnlAnswer.requestFocus();
         pnlGame.requestFocus();
         pnlGame.setVisible(true);
-    }
-    public void showAnswers() {
-        //set up answer choices
-        pnlAnswer.setLayout(new GridLayout(1, 4, 2, 2));
-        pnlAnswer.setBackground(new Color(0, 255, 245)); //background behind buttons; color = tourquoise
-        for (int x = 0; x < 3; x++) {
-            answerChoices[x] = new JButton();
-            answerChoices[x].setText(choices[x]);
-            answerChoices[x].setBackground(new Color(0, 247, 255)); //text color of symbol; color = bright blue
-            answerChoices[x].addActionListener(this);
-            pnlAnswer.add(answerChoices[x]);
-            answerChoices[x].setEnabled(true);
-            // answerChoices[x].setUI(new MetalButtonUI() {
-            //     protected Color getDisabledTextColor() {
-            //         return Color.WHITE;
-            //     }
-
-            //     protected Color getFocusColor() {
-            //         return Color.BLACK;
-            //     }
-
-            //     protected Color getSelectColor() {
-            //         return Color.BLACK;
-            //     }
-            // });
-            pnlAnswer.requestFocus();
-        }
-        pnlGame.add(pnlAnswer, BorderLayout.SOUTH);
     }
     public void clearGameBoard() {
         window.remove(pnlGame);
@@ -207,15 +220,46 @@ public class Game extends JFrame implements ActionListener {
             System.exit(0);
         }
     }
+    public JLabel getPicture(String filename){      
+        try{
+        image = ImageIO.read(new File(filename));
+        }   catch(FileNotFoundException ex){
+            System.out.println("can't find image");
+        }   catch(IOException ex){
+            System.out.println("error reading file");
+        }
+        JLabel label = new JLabel(new ImageIcon(image));
+        return label;
+      }
+      public void loadPlay(String filename){
+         try{
+            AudioInputStream audioInputStream =
+            AudioSystem.getAudioInputStream(
+            this.getClass().getResource(filename));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.start();
+         }
+         catch(Exception ex)
+         {
+             System.out.println("clip not loaded");
+         }
+     } 
+
+    public void repeatPlay(){
+         loadPlay("revengerstheme.wav");
+     }
     //game-->
     private void checkBoardClick(Object source) {
         if(!inGame){
             return;
         }
-        for ( int i = 0; i < 4; i++) {
-            if (source == answerKey[i]) {
-                score++;
-            }
-        }
+
+    }
+    private void startGame() {
+        inGame = true;
+
+        currQuestion++;
     }
 }
