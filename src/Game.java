@@ -272,18 +272,19 @@ public class Game extends JFrame implements ActionListener {
                 currQuestion++;
                 System.out.println(currQuestion);
                 System.out.println("Answer = A");
-                startGame(pictures[currQuestion]);
                 if (currQuestion == 15) {
                     JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + " right out of 15", "leave",
                             JOptionPane.PLAIN_MESSAGE);
                     inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
                 }
             }
             else {
                 currQuestion++;
                 System.out.println(currQuestion);
                 System.out.println("Answer != A");
-                startGame(pictures[currQuestion]);
                 if (currQuestion == 15) {
                     JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
                             JOptionPane.PLAIN_MESSAGE);
