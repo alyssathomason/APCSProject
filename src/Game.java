@@ -1,7 +1,14 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -9,7 +16,7 @@ import javax.sound.sampled.Clip;
 public class Game extends JFrame implements ActionListener {
     static final long serialVersionUID = 106664208;
     public boolean inGame;
-    final int X = 600, Y = 750;
+    final int X = 1200, Y = 800;
 
     private int score = 0;
     private int currQuestion = 0;
@@ -21,17 +28,23 @@ public class Game extends JFrame implements ActionListener {
     private JLabel mainTitle1, mainTitle2, mainTitle3, mainTitle4, lblQuestion, qPic; 
     private JMenuItem   mnuClearQuiz, mnuGameTitle, mnuStartQuiz, mnuExit;
 
-    private JPanel pnlBar, pnlGame, pnlTitle, pnlTitlePicture, pnlTitlePage, pnlQuestion, pnlPicture, pnlAnswer;
+    private JPanel pnlBar, pnlGame, pnlTitle, pnlTitlePicture, pnlTitlePage, pnlQuestion, pnlAnswer;
+    public static JPanel pnlPicture;
 
-    private Font fontToken = new Font("Impact", Font.BOLD, 70);
+    private Font fontAnswers = new Font("Impact", Font.BOLD, 70);
     private Font fontTitle = new Font("Impact", Font.BOLD, 30);
-    private Font fontMenu = new Font("Impact", Font.BOLD, 18);
+    private Font fontMenu = new Font("Impact", Font.BOLD, 25);
+
+    BufferedImage image;
 
     private JButton answerChoices[] = new JButton[4];
-    private String[] choices = new String[]{"A", "B", "C", "D"};
-    private String[] answerKey;
+    private String[] choices = new String[] {"A", "B", "C", "D"};
+    private String[] answerKey = new String[] {"A", "B", "C", "D", "A", "D", "C", "C", "A", "B", "C", "B", "D", "D", "B"};
     private String[] questions = {"Press button for to begin", "This revenger who?",
             "Conglaturations! A winner is you! Pray againe?", "Haha you loose, now world is will be destroy!" 
+    };
+    private String[] pictures = new String[] { "1_tinman.png", "2_whitecheetah.PNG", "3_the_bulk.PNG", "4_fighting_device.PNG", "5_hammer_man.PNG", "6_america_man.png", "7_bird_vision.png", "8_crimson_sorceress.png", "9_dark_widow.png", "10_summer_soldier.png", "11_termiteMan.png",
+    "12_arachnid_adultmale.png", "13_professor weird m.d..png", "14_eyesight.png", "15_thecrow.png"
     };
     
     public void init() {
@@ -126,14 +139,12 @@ public class Game extends JFrame implements ActionListener {
         pnlGame.setLayout(new BorderLayout());
         //question
         lblQuestion = new JLabel(questions[1]);
-        lblQuestion.setFont(fontMenu);;
+        lblQuestion.setFont(fontTitle);;
         pnlQuestion.add(lblQuestion);
         pnlQuestion.setBackground(new Color(160, 0, 255)); //color = purple
         pnlGame.add(pnlQuestion, BorderLayout.NORTH);
         //set up picture area
-        pnlGame.add(pnlPicture, BorderLayout.CENTER);
-        qPic = getPicture("1_tinman.png");
-        pnlQuestion.add(qPic);       
+        pnlGame.add(pnlPicture, BorderLayout.CENTER);     
         loadPlay("revengerstheme.wav");
         pnlPicture.setBackground(new Color(255, 135, 0)); //color = burnt orange
         //set up answer choices
@@ -143,7 +154,7 @@ public class Game extends JFrame implements ActionListener {
             answerChoices[x] = new JButton();
             answerChoices[x].setText(choices[x]);
             System.out.println(choices[x]);
-            answerChoices[x].setFont(fontToken);
+            answerChoices[x].setFont(fontAnswers);
             answerChoices[x].setBackground(new Color(0, 247, 255)); //text color of symbol; color = bright blue
             answerChoices[x].addActionListener(this);
             pnlAnswer.add(answerChoices[x]);
@@ -152,7 +163,6 @@ public class Game extends JFrame implements ActionListener {
                 protected Color getDisabledTextColor() {
                     return Color.WHITE;
                 }
-
                 protected Color getFocusColor() {
                     return Color.BLACK;
                 }
@@ -164,24 +174,23 @@ public class Game extends JFrame implements ActionListener {
         }
         pnlAnswer.requestFocus();
         pnlAnswer.setVisible(true);
-        
     }
     public void actionPerformed(ActionEvent click) {
+        System.out.println("Testing");
         // get the mouse click from the user
         Object source = click.getSource();
         if (source == mnuGameTitle) {
             showTitlePage();
         } else if (source == mnuClearQuiz) {
             clearGameBoard();
-            startGame();
         } else if (source == mnuExit) {
             exitGame();
         } else if (source == mnuStartQuiz) {
             showGame();
-            startGame();
+            startGame(pictures[0]);
         } else if (source == startGameButton) {
             showGame();
-            startGame();
+            startGame(pictures[0]);
         }
         else {
             checkBoardClick(source);
@@ -212,8 +221,12 @@ public class Game extends JFrame implements ActionListener {
         pnlTitlePage.setVisible(false);
         pnlGame.setVisible(false);
     }
+    public void newPicture() {
+        pnlGame.remove(pnlPicture);
+
+    }
     public void exitGame() {
-        int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?",
+        int option = JOptionPane.showConfirmDialog(null, "U gon to let the world down?????????",
                 "Quit" ,JOptionPane.YES_NO_OPTION);
         if(option == JOptionPane.YES_OPTION)
         {
@@ -221,7 +234,7 @@ public class Game extends JFrame implements ActionListener {
         }
     }
     public JLabel getPicture(String filename){      
-        try{
+        try {
         image = ImageIO.read(new File(filename));
         }   catch(FileNotFoundException ex){
             System.out.println("can't find image");
@@ -231,11 +244,9 @@ public class Game extends JFrame implements ActionListener {
         JLabel label = new JLabel(new ImageIcon(image));
         return label;
       }
-      public void loadPlay(String filename){
+    public void loadPlay(String filename){
          try{
-            AudioInputStream audioInputStream =
-            AudioSystem.getAudioInputStream(
-            this.getClass().getResource(filename));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(filename));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -255,11 +266,124 @@ public class Game extends JFrame implements ActionListener {
         if(!inGame){
             return;
         }
-
+        else if (source == answerChoices[0]) {
+            if (answerKey[currQuestion].equals("A")) {
+                score++;
+                currQuestion++;
+                System.out.println(currQuestion);
+                System.out.println("Answer = A");
+                startGame(pictures[currQuestion]);
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+            }
+            else {
+                currQuestion++;
+                System.out.println(currQuestion);
+                System.out.println("Answer != A");
+                startGame(pictures[currQuestion]);
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
+            }
+        } else if (source == answerChoices[1]) {
+            if (answerKey[currQuestion].equals("B")) {
+                score++;
+                currQuestion++;
+                System.out.println("Answer = B");
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
+            }
+            else {
+                currQuestion++;
+                System.out.println("Answer != B");
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
+            }
+        } else if (source == answerChoices[2]) {
+            if (answerKey[currQuestion].equals("C")) {
+                score++;
+                currQuestion++;
+                System.out.println("Answer = C");
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
+            }
+            else {
+                currQuestion++;
+                System.out.println("Answer != C");
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
+            }
+        } else if (source == answerChoices[3]) {
+            if (answerKey[currQuestion].equals("D")) {
+                score++;
+                currQuestion++;
+                System.out.println("Answer = D");
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
+            }
+            else {
+                currQuestion++;
+                System.out.println("Answer != D");
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
+            }
+        }
     }
-    private void startGame() {
+    private void startGame(String picFile) {
         inGame = true;
-
-        currQuestion++;
+        // pnlGame.remove(pnlPicture);
+        if (currQuestion > 0) {
+            pnlPicture.remove(qPic);
+            System.out.println("Removing pic");
+        }
+        qPic = getPicture(picFile);
+        System.out.println(picFile);
+        pnlPicture.add(qPic);
+        pnlPicture.revalidate();
+        pnlGame.add(pnlPicture, BorderLayout.CENTER);
     }
 }
