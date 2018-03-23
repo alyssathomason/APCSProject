@@ -16,7 +16,7 @@ import javax.sound.sampled.Clip;
 public class Game extends JFrame implements ActionListener {
     static final long serialVersionUID = 106664208;
     public boolean inGame;
-    final int X = 1200, Y = 800;
+    final int X = 1200, Y = 875;
 
     private int score = 0;
     private int currQuestion = 0;
@@ -26,13 +26,14 @@ public class Game extends JFrame implements ActionListener {
     private JButton startGameButton;
 
     private JLabel mainTitle1, mainTitle2, mainTitle3, mainTitle4, lblQuestion, qPic; 
-    private JMenuItem   mnuClearQuiz, mnuGameTitle, mnuStartQuiz, mnuExit;
+    private JMenuItem mnuGameTitle, mnuStartQuiz, mnuExit;
 
     private JPanel pnlBar, pnlGame, pnlTitle, pnlTitlePicture, pnlTitlePage, pnlQuestion, pnlAnswer;
     public static JPanel pnlPicture;
 
-    private Font fontAnswers = new Font("Impact", Font.BOLD, 70);
-    private Font fontTitle = new Font("Impact", Font.BOLD, 30);
+    private Font fontAnswers = new Font("Impact", Font.ITALIC, 70);
+    private Font fontTitle = new Font("Impact", Font.BOLD, 100);
+    private Font fontSubTitle = new Font("Comic Sans", Font.BOLD, 30);
     private Font fontMenu = new Font("Impact", Font.BOLD, 25);
 
     BufferedImage image;
@@ -70,20 +71,16 @@ public class Game extends JFrame implements ActionListener {
         //start MENU initialization
         mnuMain = new JMenuBar();
         mnuGameTitle = new JMenuItem("   HOME");
-        mnuClearQuiz = new JMenuItem("   CLEAR QUIZ");
         mnuStartQuiz = new JMenuItem("   START QUIZ");
         mnuExit = new JMenuItem("   GIVE UP");
         //adding menu items to overall menu
         mnuMain.add(mnuGameTitle);
         mnuGameTitle.setFont(fontMenu);
-        mnuMain.add(mnuClearQuiz);
-        mnuClearQuiz.setFont(fontMenu);
         mnuMain.add(mnuStartQuiz);
         mnuStartQuiz.setFont(fontMenu);
         mnuMain.add(mnuExit);
         mnuExit.setFont(fontMenu);
         //adding Action Listeners to menu buttons
-        mnuClearQuiz.addActionListener(this);
         mnuExit.addActionListener(this);
         mnuStartQuiz.addActionListener(this);
         mnuGameTitle.addActionListener(this);
@@ -115,7 +112,7 @@ public class Game extends JFrame implements ActionListener {
         pnlTitlePicture.setBackground(new Color(255, 0, 0));
         //adding the start game button
         startGameButton = new JButton("Press me daddy");
-        startGameButton.setFont(fontTitle);
+        startGameButton.setFont(fontSubTitle);
         startGameButton.addActionListener(this);
         startGameButton.setBackground(new Color(255, 255, 0)); //color = yellow
         pnlTitlePage.add(startGameButton, BorderLayout.SOUTH);
@@ -140,7 +137,7 @@ public class Game extends JFrame implements ActionListener {
         pnlGame.setLayout(new BorderLayout());
         //question
         lblQuestion = new JLabel(questions[1]);
-        lblQuestion.setFont(fontTitle);;
+        lblQuestion.setFont(fontSubTitle);;
         pnlQuestion.add(lblQuestion);
         pnlQuestion.setBackground(new Color(160, 0, 255)); //color = purple
         pnlGame.add(pnlQuestion, BorderLayout.NORTH);
@@ -182,16 +179,18 @@ public class Game extends JFrame implements ActionListener {
         Object source = click.getSource();
         if (source == mnuGameTitle) {
             showTitlePage();
-        } else if (source == mnuClearQuiz) {
-            clearGameBoard();
+            window.revalidate();
         } else if (source == mnuExit) {
             exitGame();
+            window.revalidate();
         } else if (source == mnuStartQuiz) {
             showGame();
             startGame(pictures[0]);
+            window.revalidate();
         } else if (source == startGameButton) {
             showGame();
             startGame(pictures[0]);
+            window.revalidate();
         }
         else {
             checkBoardClick(source);
