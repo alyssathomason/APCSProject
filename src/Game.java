@@ -8,6 +8,9 @@ import javax.imageio.ImageIO;
 
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
+
+import com.sun.org.apache.xml.internal.utils.res.StringArrayWrapper;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -41,6 +44,8 @@ public class Game extends JFrame implements ActionListener {
     private String[] answerKey = new String[] {"A", "B", "C", "D", "A", "D", "C", "C", "A", "A", "C", "B", "D", "D", "B"};
     private String[] questions = {"Press button for to begin", "This revenger who?",
             "Conglaturations! A winner is you! Pray againe?", "Haha you loose, now world is will be destroy!" 
+    };
+    private String[] pictures = new String[] { "1_tinman.png", "2_whitecheetah.PNG", "3_the_bulk.PNG", "4_fighting_device.PNG", "5_hammer_man.PNG"
     };
     
     public void init() {
@@ -140,9 +145,7 @@ public class Game extends JFrame implements ActionListener {
         pnlQuestion.setBackground(new Color(160, 0, 255)); //color = purple
         pnlGame.add(pnlQuestion, BorderLayout.NORTH);
         //set up picture area
-        pnlGame.add(pnlPicture, BorderLayout.CENTER);
-        qPic = getPicture("1_tinman.png");
-        pnlQuestion.add(qPic);       
+        pnlGame.add(pnlPicture, BorderLayout.CENTER);     
         loadPlay("revengerstheme.wav");
         pnlPicture.setBackground(new Color(255, 135, 0)); //color = burnt orange
         //set up answer choices
@@ -161,32 +164,6 @@ public class Game extends JFrame implements ActionListener {
                 protected Color getDisabledTextColor() {
                     return Color.WHITE;
                 }
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-    }
-    /**load picture method
-        // if question_number == x{
-            qPic = getPicture("(filename)");
-            pnlQuestion.add(qPic);
-        }
-        **/
-    public void loadPlay(String filename){
-        try{
-            AudioInputStream audioInputStream =
-                AudioSystem.getAudioInputStream(
-                    this.getClass().getResource(filename));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            clip.start();
-        }
-        catch(Exception ex)
-        {
-            System.out.println("clip not loaded");
-=======
->>>>>>> b6c77c43f4e78298b80c73ad345bc6c84c9f6f33
                 protected Color getFocusColor() {
                     return Color.BLACK;
                 }
@@ -195,16 +172,11 @@ public class Game extends JFrame implements ActionListener {
                     return Color.BLACK;
                 }
             });
->>>>>>> origin/master
         }
         pnlAnswer.requestFocus();
         pnlAnswer.setVisible(true);
         
     }
-<<<<<<< HEAD
-    
-=======
->>>>>>> origin/master
     public void actionPerformed(ActionEvent click) {
         // get the mouse click from the user
         Object source = click.getSource();
@@ -312,7 +284,8 @@ public class Game extends JFrame implements ActionListener {
     }
     private void startGame() {
         inGame = true;
-
+        qPic = getPicture(pictures[currQuestion]);
+        pnlPicture.add(qPic);
         currQuestion++;
     }
 }
