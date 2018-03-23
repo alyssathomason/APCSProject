@@ -43,16 +43,16 @@ public class Game extends JFrame implements ActionListener {
     private String[] answerKey = new String[] {"A", "B", "C", "D", "A", "D", "C", "C", "A", "B", "C", "B", "D", "D", "B"};
     private String[] questions = {"Press button for to begin", "This revenger who?",
             "Conglaturations! A winner is you! Pray againe?", "Haha you loose, now world is will be destroy!" 
-    };
+        };
     private String[] pictures = new String[] { "1_tinman.png", "2_whitecheetah.PNG", "3_the_bulk.PNG", "4_fighting_device.PNG", "5_hammer_man.PNG", "6_america_man.png", "7_bird_vision.png", "8_crimson_sorceress.png", "9_dark_widow.png", "10_summer_soldier.png", "11_termiteMan.png",
-    "12_arachnid_adultmale.png", "13_professor weird m.d..png", "14_eyesight.png", "15_thecrow.png"
-    };
-    
+            "12_arachnid_adultmale.png", "13_professor weird m.d..png", "14_eyesight.png", "15_thecrow.png"
+        };
+
     public void init() {
         inGame = false;
 
         window = new JFrame("REVENGERS REUNITE");
-        
+
         pnlBar = new JPanel();
         pnlGame = new JPanel();
         pnlTitlePage = new JPanel();
@@ -88,7 +88,7 @@ public class Game extends JFrame implements ActionListener {
         pnlBar.add(mnuMain);
         pnlBar.setBackground(new Color(75, 255, 0)); //color = bright green
         //end menu initialization;
-        
+
         //title page
         pnlTitlePage.setLayout(new BorderLayout());
         pnlTitlePage.setBackground(new Color(255, 0, 0)); //color = red
@@ -117,16 +117,18 @@ public class Game extends JFrame implements ActionListener {
         startGameButton.setBackground(new Color(255, 255, 0)); //color = yellow
         pnlTitlePage.add(startGameButton, BorderLayout.SOUTH);
         startGameButton.setUI(new MetalButtonUI() {
-            protected Color getDisabledTextColor() {
-                return Color.GREEN;
-            }
-            protected Color getFocusColor() {
-                return Color.BLACK;
-            }
-            protected Color getSelectColor() {
-                return Color.BLACK;
-            }
-        });
+                protected Color getDisabledTextColor() {
+                    return Color.GREEN;
+                }
+
+                protected Color getFocusColor() {
+                    return Color.BLACK;
+                }
+
+                protected Color getSelectColor() {
+                    return Color.BLACK;
+                }
+            });
         //end title page
         showTitlePage();
 
@@ -158,21 +160,23 @@ public class Game extends JFrame implements ActionListener {
             pnlAnswer.add(answerChoices[x]);
             answerChoices[x].setEnabled(true);
             answerChoices[x].setUI(new MetalButtonUI() {
-                protected Color getDisabledTextColor() {
-                    return Color.WHITE;
-                }
-                protected Color getFocusColor() {
-                    return Color.BLACK;
-                }
+                    protected Color getDisabledTextColor() {
+                        return Color.WHITE;
+                    }
 
-                protected Color getSelectColor() {
-                    return Color.BLACK;
-                }
-            });
+                    protected Color getFocusColor() {
+                        return Color.BLACK;
+                    }
+
+                    protected Color getSelectColor() {
+                        return Color.BLACK;
+                    }
+                });
         }
         pnlAnswer.requestFocus();
         pnlAnswer.setVisible(true);
     }
+
     public void actionPerformed(ActionEvent click) {
         System.out.println("Testing");
         // get the mouse click from the user
@@ -205,6 +209,7 @@ public class Game extends JFrame implements ActionListener {
         pnlTitlePage.requestFocus();
         pnlTitlePage.setVisible(true);
     }
+
     public void showGame() {
         clearGameBoard();
         window.add(pnlGame, BorderLayout.CENTER);
@@ -213,6 +218,7 @@ public class Game extends JFrame implements ActionListener {
         pnlGame.requestFocus();
         pnlGame.setVisible(true);
     }
+
     public void clearGameBoard() {
         window.remove(pnlGame);
         window.remove(pnlTitlePage);
@@ -221,10 +227,12 @@ public class Game extends JFrame implements ActionListener {
         pnlTitlePage.setVisible(false);
         pnlGame.setVisible(false);
     }
+
     public void newPicture() {
         pnlGame.remove(pnlPicture);
 
     }
+
     public void exitGame() {
         int option = JOptionPane.showConfirmDialog(null, "U gon to let the world down?????????",
                 "Quit" ,JOptionPane.YES_NO_OPTION);
@@ -233,9 +241,10 @@ public class Game extends JFrame implements ActionListener {
             System.exit(0);
         }
     }
+
     public JLabel getPicture(String filename){      
         try {
-        image = ImageIO.read(new File(filename));
+            image = ImageIO.read(new File(filename));
         }   catch(FileNotFoundException ex){
             System.out.println("can't find image");
         }   catch(IOException ex){
@@ -243,24 +252,25 @@ public class Game extends JFrame implements ActionListener {
         }
         JLabel label = new JLabel(new ImageIcon(image));
         return label;
-      }
+    }
+
     public void loadPlay(String filename){
-         try{
+        try{
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(filename));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             clip.start();
-         }
-         catch(Exception ex)
-         {
-             System.out.println("clip not loaded");
-         }
-     } 
+        }
+        catch(Exception ex)
+        {
+            System.out.println("clip not loaded");
+        }
+    } 
 
     public void repeatPlay(){
-         loadPlay("revengerstheme.wav");
-     }
+        loadPlay("revengerstheme.wav");
+    }
     //game-->
     private void checkBoardClick(Object source) {
         if(!inGame){
@@ -273,9 +283,16 @@ public class Game extends JFrame implements ActionListener {
                 System.out.println(currQuestion);
                 System.out.println("Answer = A");
                 if (currQuestion == 15) {
-                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + " right out of 15", "leave",
+                    if(score < 10){
+                        JOptionPane.showMessageDialog(null, "hahaha you lose. you only reunited " + score + " revengers out of 15. Now world is will be destroy and are belong to us!", "leave",
                             JOptionPane.PLAIN_MESSAGE);
-                    inGame = false;
+                        inGame = false;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "conglaturations! a winner is you! you reunited " + score + " revengers out of 15 and world is will have be safe", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                        inGame = false;
+                    }
                 }
                 else {
                     startGame(pictures[currQuestion]);
@@ -286,9 +303,16 @@ public class Game extends JFrame implements ActionListener {
                 System.out.println(currQuestion);
                 System.out.println("Answer != A");
                 if (currQuestion == 15) {
-                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                    if(score < 10){
+                        JOptionPane.showMessageDialog(null, "hahaha you lose. you only reunited " + score + " revengers out of 15. Now world is will be destroy and are belong to us!", "leave",
                             JOptionPane.PLAIN_MESSAGE);
-                    inGame = false;
+                        inGame = false;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "conglaturations! a winner is you! you reunited " + score + " revengers out of 15 and world is will have be safe", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                        inGame = false;
+                    }
                 }
                 else {
                     startGame(pictures[currQuestion]);
@@ -300,9 +324,16 @@ public class Game extends JFrame implements ActionListener {
                 currQuestion++;
                 System.out.println("Answer = B");
                 if (currQuestion == 15) {
-                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                    if(score < 10){
+                        JOptionPane.showMessageDialog(null, "hahaha you lose. you only reunited " + score + " revengers out of 15. Now world is will be destroy and are belong to us!", "leave",
                             JOptionPane.PLAIN_MESSAGE);
-                    inGame = false;
+                        inGame = false;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "conglaturations! a winner is you! you reunited " + score + " revengers out of 15 and world is will have be safe", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                        inGame = false;
+                    }
                 }
                 else {
                     startGame(pictures[currQuestion]);
@@ -312,9 +343,16 @@ public class Game extends JFrame implements ActionListener {
                 currQuestion++;
                 System.out.println("Answer != B");
                 if (currQuestion == 15) {
-                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                    if(score < 10){
+                        JOptionPane.showMessageDialog(null, "hahaha you lose. you only reunited " + score + " revengers out of 15. Now world is will be destroy and are belong to us!", "leave",
                             JOptionPane.PLAIN_MESSAGE);
-                    inGame = false;
+                        inGame = false;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "conglaturations! a winner is you! you reunited " + score + " revengers out of 15 and world is will have be safe", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                        inGame = false;
+                    }
                 }
                 else {
                     startGame(pictures[currQuestion]);
@@ -326,9 +364,16 @@ public class Game extends JFrame implements ActionListener {
                 currQuestion++;
                 System.out.println("Answer = C");
                 if (currQuestion == 15) {
-                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                    if(score < 10){
+                        JOptionPane.showMessageDialog(null, "hahaha you lose. you only reunited " + score + " revengers out of 15. Now world is will be destroy and are belong to us!", "leave",
                             JOptionPane.PLAIN_MESSAGE);
-                    inGame = false;
+                        inGame = false;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "conglaturations! a winner is you! you reunited " + score + " revengers out of 15 and world is will have be safe", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                        inGame = false;
+                    }
                 }
                 else {
                     startGame(pictures[currQuestion]);
@@ -338,9 +383,16 @@ public class Game extends JFrame implements ActionListener {
                 currQuestion++;
                 System.out.println("Answer != C");
                 if (currQuestion == 15) {
-                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                    if(score < 10){
+                        JOptionPane.showMessageDialog(null, "hahaha you lose. you only reunited " + score + " revengers out of 15. Now world is will be destroy and are belong to us!", "leave",
                             JOptionPane.PLAIN_MESSAGE);
-                    inGame = false;
+                        inGame = false;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "conglaturations! a winner is you! you reunited " + score + " revengers out of 15 and world is will have be safe", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                        inGame = false;
+                    }
                 }
                 else {
                     startGame(pictures[currQuestion]);
@@ -352,9 +404,16 @@ public class Game extends JFrame implements ActionListener {
                 currQuestion++;
                 System.out.println("Answer = D");
                 if (currQuestion == 15) {
-                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                    if(score < 10){
+                        JOptionPane.showMessageDialog(null, "hahaha you lose. you only reunited " + score + " revengers out of 15. Now world is will be destroy and are belong to us!", "leave",
                             JOptionPane.PLAIN_MESSAGE);
-                    inGame = false;
+                        inGame = false;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "conglaturations! a winner is you! you reunited " + score + " revengers out of 15 and world is will have be safe", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                        inGame = false;
+                    }
                 }
                 else {
                     startGame(pictures[currQuestion]);
@@ -364,9 +423,16 @@ public class Game extends JFrame implements ActionListener {
                 currQuestion++;
                 System.out.println("Answer != D");
                 if (currQuestion == 15) {
-                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                    if(score < 10){
+                        JOptionPane.showMessageDialog(null, "hahaha you lose. you only reunited " + score + " revengers out of 15. Now world is will be destroy and are belong to us!", "leave",
                             JOptionPane.PLAIN_MESSAGE);
-                    inGame = false;
+                        inGame = false;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "conglaturations! a winner is you! you reunited " + score + " revengers out of 15 and world is will have be safe", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                        inGame = false;
+                    }
                 }
                 else {
                     startGame(pictures[currQuestion]);
@@ -374,6 +440,7 @@ public class Game extends JFrame implements ActionListener {
             }
         }
     }
+
     private void startGame(String picFile) {
         inGame = true;
         // pnlGame.remove(pnlPicture);
