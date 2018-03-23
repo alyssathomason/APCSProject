@@ -110,6 +110,7 @@ public class Game extends JFrame implements ActionListener {
         pnlTitle.setBackground(new Color(255, 0, 0)); //color = red
         //adding title picture
         pnlTitlePage.add(pnlTitle, BorderLayout.NORTH);
+        pnlTitlePicture.add(getPicture("revengers.png"));
         pnlTitlePage.add(pnlTitlePicture, BorderLayout.CENTER);
         pnlTitlePicture.setBackground(new Color(255, 0, 0));
         //adding the start game button
@@ -155,7 +156,7 @@ public class Game extends JFrame implements ActionListener {
             answerChoices[x].setText(choices[x]);
             System.out.println(choices[x]);
             answerChoices[x].setFont(fontAnswers);
-            answerChoices[x].setBackground(new Color(0, 247, 255)); //text color of symbol; color = bright blue
+            answerChoices[x].setBackground(new Color(26, 216, 204)); //text color of symbol; color = bright blue
             answerChoices[x].addActionListener(this);
             pnlAnswer.add(answerChoices[x]);
             answerChoices[x].setEnabled(true);
@@ -274,7 +275,7 @@ public class Game extends JFrame implements ActionListener {
                 System.out.println("Answer = A");
                 startGame(pictures[currQuestion]);
                 if (currQuestion == 15) {
-                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + " right out of 15", "leave",
                             JOptionPane.PLAIN_MESSAGE);
                     inGame = false;
                 }
