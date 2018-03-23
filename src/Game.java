@@ -39,12 +39,12 @@ public class Game extends JFrame implements ActionListener {
 
     private JButton answerChoices[] = new JButton[4];
     private String[] choices = new String[] {"A", "B", "C", "D"};
-    private String[] answerKey = new String[] {"A", "B", "C", "D", "A", "D", "C", "C", "A", "A", "C", "B", "D", "D", "B"};
+    private String[] answerKey = new String[] {"A", "B", "C", "D", "A", "D", "C", "C", "A", "B", "C", "B", "D", "D", "B"};
     private String[] questions = {"Press button for to begin", "This revenger who?",
             "Conglaturations! A winner is you! Pray againe?", "Haha you loose, now world is will be destroy!" 
     };
     private String[] pictures = new String[] { "1_tinman.png", "2_whitecheetah.PNG", "3_the_bulk.PNG", "4_fighting_device.PNG", "5_hammer_man.PNG", "6_america_man.png", "7_bird_vision.png", "8_crimson_sorceress.png", "9_dark_widow.png", "10_summer_soldier.png", "11_termiteMan.png",
-    "12_arachnid_adultmale.png", "13_professor weird m.d..png", "14_ eyesight.png", "15_ thecrow.png"
+    "12_arachnid_adultmale.png", "13_professor weird m.d..png", "14_eyesight.png", "15_thecrow.png"
     };
     
     public void init() {
@@ -226,7 +226,7 @@ public class Game extends JFrame implements ActionListener {
 
     }
     public void exitGame() {
-        int option = JOptionPane.showConfirmDialog(null, "U gon to to let the world down?????????",
+        int option = JOptionPane.showConfirmDialog(null, "U gon to let the world down?????????",
                 "Quit" ,JOptionPane.YES_NO_OPTION);
         if(option == JOptionPane.YES_OPTION)
         {
@@ -273,48 +273,103 @@ public class Game extends JFrame implements ActionListener {
                 System.out.println(currQuestion);
                 System.out.println("Answer = A");
                 startGame(pictures[currQuestion]);
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
             }
             else {
                 currQuestion++;
                 System.out.println(currQuestion);
                 System.out.println("Answer != A");
                 startGame(pictures[currQuestion]);
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
             }
         } else if (source == answerChoices[1]) {
             if (answerKey[currQuestion].equals("B")) {
                 score++;
                 currQuestion++;
                 System.out.println("Answer = B");
-                startGame(pictures[currQuestion]);
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
             }
             else {
                 currQuestion++;
                 System.out.println("Answer != B");
-                startGame(pictures[currQuestion]);
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
             }
         } else if (source == answerChoices[2]) {
             if (answerKey[currQuestion].equals("C")) {
                 score++;
                 currQuestion++;
                 System.out.println("Answer = C");
-                startGame(pictures[currQuestion]);
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
             }
             else {
                 currQuestion++;
                 System.out.println("Answer != C");
-                startGame(pictures[currQuestion]);
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
             }
         } else if (source == answerChoices[3]) {
             if (answerKey[currQuestion].equals("D")) {
                 score++;
                 currQuestion++;
                 System.out.println("Answer = D");
-                startGame(pictures[currQuestion]);
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
             }
             else {
                 currQuestion++;
                 System.out.println("Answer != D");
-                startGame(pictures[currQuestion]);
+                if (currQuestion == 15) {
+                    JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave",
+                            JOptionPane.PLAIN_MESSAGE);
+                    inGame = false;
+                }
+                else {
+                    startGame(pictures[currQuestion]);
+                }
             }
         }
     }
@@ -330,9 +385,5 @@ public class Game extends JFrame implements ActionListener {
         pnlPicture.add(qPic);
         pnlPicture.revalidate();
         pnlGame.add(pnlPicture, BorderLayout.CENTER);
-        if (currQuestion == 14) {
-            JOptionPane.showMessageDialog(null, "ur DUN. you got " + score + "right out of 15", "leave", JOptionPane.PLAIN_MESSAGE);
-            inGame = false;
-        }
     }
 }
