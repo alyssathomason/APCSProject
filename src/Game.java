@@ -16,7 +16,7 @@ import javax.sound.sampled.Clip;
 public class Game extends JFrame implements ActionListener {
     static final long serialVersionUID = 106664208;
     public boolean inGame;
-    final int X = 1200, Y = 875;
+    final int X = 1300, Y = 875;
 
     private int score = 0;
     private int currQuestion = 0;
@@ -68,26 +68,26 @@ public class Game extends JFrame implements ActionListener {
         window.setLayout(new BorderLayout());
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //start MENU initialization
-        mnuMain = new JMenuBar();
-        mnuGameTitle = new JMenuItem("   HOME");
-        mnuStartQuiz = new JMenuItem("   START QUIZ");
-        mnuExit = new JMenuItem("   GIVE UP");
-        //adding menu items to overall menu
-        mnuMain.add(mnuGameTitle);
-        mnuGameTitle.setFont(fontMenu);
-        mnuMain.add(mnuStartQuiz);
-        mnuStartQuiz.setFont(fontMenu);
-        mnuMain.add(mnuExit);
-        mnuExit.setFont(fontMenu);
-        //adding Action Listeners to menu buttons
-        mnuExit.addActionListener(this);
-        mnuStartQuiz.addActionListener(this);
-        mnuGameTitle.addActionListener(this);
-        //adding menu to panel
-        pnlBar.add(mnuMain);
-        pnlBar.setBackground(new Color(75, 255, 0)); //color = bright green
-        //end menu initialization;
+        // //start MENU initialization
+        // mnuMain = new JMenuBar();
+        // mnuGameTitle = new JMenuItem("   HOME");
+        // mnuStartQuiz = new JMenuItem("   START QUIZ");
+        // mnuExit = new JMenuItem("   GIVE UP");
+        // //adding menu items to overall menu
+        // mnuMain.add(mnuGameTitle);
+        // mnuGameTitle.setFont(fontMenu);
+        // mnuMain.add(mnuStartQuiz);
+        // mnuStartQuiz.setFont(fontMenu);
+        // mnuMain.add(mnuExit);
+        // mnuExit.setFont(fontMenu);
+        // //adding Action Listeners to menu buttons
+        // mnuExit.addActionListener(this);
+        // mnuStartQuiz.addActionListener(this);
+        // mnuGameTitle.addActionListener(this);
+        // //adding menu to panel
+        // pnlBar.add(mnuMain);
+        // pnlBar.setBackground(new Color(75, 255, 0)); //color = bright green
+        // //end menu initialization;
 
         //title page
         pnlTitlePage.setLayout(new BorderLayout());
@@ -95,13 +95,13 @@ public class Game extends JFrame implements ActionListener {
         mainTitle1 = new JLabel("wElCOmE");
         mainTitle1.setFont(fontTitle);
         pnlTitle.add(mainTitle1);
-        mainTitle2 = new JLabel("tO ThE");
+        mainTitle2 = new JLabel(" tO ThE");
         mainTitle2.setFont(fontTitle);
         pnlTitle.add(mainTitle2);
-        mainTitle3 = new JLabel("rEveNgErS");
+        mainTitle3 = new JLabel(" rEveNgErS");
         mainTitle3.setFont(fontTitle);
         pnlTitle.add(mainTitle3);
-        mainTitle4 = new JLabel("QuIz");
+        mainTitle4 = new JLabel(" QuIz");
         mainTitle4.setFont(fontTitle);
         pnlTitle.add(mainTitle4);
         pnlTitle.setBackground(new Color(255, 0, 0)); //color = red
